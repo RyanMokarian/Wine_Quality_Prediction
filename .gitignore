@@ -1,7 +1,6 @@
 # Pycharm
 .idea
 *venv/
-*data
 
 # Byte-compiled
 __pycache__/
