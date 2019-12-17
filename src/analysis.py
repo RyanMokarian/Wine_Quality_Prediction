@@ -47,8 +47,8 @@ def radar_chart(labels, values, title):
 
 if __name__ == "__main__":
 # (1) Loading
-    df_red_wine =read_data_to_dataframe("..\data\winequality-red.csv")
-    df_white_wine =read_data_to_dataframe("..\data\winequality-white.csv")
+    df_red_wine =read_data_to_dataframe("../data/winequality-red.csv")
+    df_white_wine =read_data_to_dataframe("../data/winequality-white.csv")
 # (2) Pre-processing
 # Description
     # print(df_red_wine.describe())
@@ -56,8 +56,13 @@ if __name__ == "__main__":
 # Histogram
     # Histograms(df_red_wine, df_white_wine)
 # Min-Max scaling and Radar Chart
-    df_red_wine_scaled = (df_red_wine - df_red_wine.min()) / (df_red_wine.max() - df_red_wine.min())
-    df_white_wine_scaled = (df_white_wine - df_white_wine.min()) / (df_white_wine.max() - df_white_wine.min())
+    X_redwine = df_red_wine.iloc[:,:-1]
+    y_redwine = df_red_wine.iloc[:,-1]
+
+    X_whitewine = df_white_wine.iloc[:,:-1]
+    y_whitewine = df_white_wine.iloc[:,-1]
+    df_red_wine_scaled = (X_redwine - X_redwine.min()) / (X_redwine.max() - X_redwine.min())
+    df_white_wine_scaled = (X_whitewine - X_whitewine.min()) / (X_whitewine.max() - X_whitewine.min())
     # labels = ['fixed_acidity','volatile_acidity','citric_acid','residual_sugar','chlorides',
     #           'free_sulfur_dioxide','total_sulfur_dioxide','density','pH','sulphates','alcohol','quality']
     # radar_chart(labels, df_red_wine_scaled.mean(), 'Red Wine Mean Radar Chart (0-1)')
@@ -74,9 +79,9 @@ if __name__ == "__main__":
 
 # Support Vector Machine
 #     clf = svm_estimation(df_red_wine)
-    clf = svm.SVC(kernel='rbf', gamma=0.01, C=1000)
+#     clf = svm.SVC(kernel='rbf', gamma=0.01, C=1000)
     # classifier_kfold_validation(df_red_wine, clf)
-    classifier_kfold_validation(df_white_wine, clf)
+    # classifier_kfold_validation(df_white_wine, clf)
 
 # Gradient Boosting
 #     run_exhaustive_search(clf, df, 1, parameter_space)
@@ -94,3 +99,17 @@ if __name__ == "__main__":
 #     plt.show()
 
     # gavazn=""
+
+    # classifier_kfold_validation(df, clf)
+    train_acc, test_acc = classifier_learn(df_red_wine_scaled, y_redwine)
+
+    import matplotlib.pyplot as plt
+
+    depth = [0.01, 0.025, 0.05, 0.075, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5]
+    plt.plot(depth, train_acc)
+    plt.plot(depth, test_acc)
+    plt.title('red wine model accuracy')
+    plt.ylabel('accuracy')
+    plt.xlabel('learning rate')
+    plt.legend(['train', 'val'], loc='upper left')
+    plt.show()
