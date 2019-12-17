@@ -60,6 +60,13 @@ def classifier_kfoldn(df_gender):
     RandomForestClassifier
     Scores: [0.75892401 0.76454945 0.76577682 0.76639051 0.76237725]
     Accuracy: 0.76 (+/- 0.01)
+
+    red wine RandomForestClassifier(max_depth=40, n_estimators=100, verbose=True) test acc: 0.675
+    white wine RandomForestClassifier(max_depth=30, n_estimators=25, verbose=True) test acc: 0.6612244897959184
+
+    red wine GradientBoostingClassifier(learning_rate=0.4, n_estimators=300, verbose=True) test acc: 0.640625
+    white wine GradientBoostingClassifier(learning_rate=0.2, n_estimators=300, verbose=True) test acc: 0.6387755102040816
+
     :param df_gender:
     :param clf:
     :return:
@@ -111,9 +118,9 @@ def run_exhaustive_search(clf, df, parameter_space):
 
 
 def classifier_learn(X, y):
-    x, x_test, y, y_test = train_test_split(X, y, test_size=0.2, train_size=0.8)
-    x_train, x_cv, y_train, y_cv = train_test_split(x, y, test_size=0.25, train_size=0.75)
-    # clf = GradientBoostingClassifier(learning_rate=0.15, n_estimators=50, verbose=True)
+    x, x_test, y, y_test = train_test_split(X, y, test_size=0.2, train_size=0.8, random_state=0)
+    x_train, x_cv, y_train, y_cv = train_test_split(x, y, test_size=0.25, train_size=0.75, random_state=0)
+    # clf = RandomForestClassifier(max_depth=30, n_estimators=25, verbose=True)
     # clf.fit(x_train, y_train)
     # y_pred = clf.predict(x_test)
     # print(accuracy_score(y_test, y_pred))
