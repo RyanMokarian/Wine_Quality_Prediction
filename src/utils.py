@@ -110,18 +110,22 @@ def run_exhaustive_search(clf, df, parameter_space):
     print(classification_report(y_true, y_pred))
 
 
+
 def classifier_learn(X, y):
     x, x_test, y, y_test = train_test_split(X, y, test_size=0.2, train_size=0.8)
     x_train, x_cv, y_train, y_cv = train_test_split(x, y, test_size=0.25, train_size=0.75)
-    # clf = GradientBoostingClassifier(learning_rate=0.15, n_estimators=50, verbose=True)
-    # clf.fit(x_train, y_train)
-    # y_pred = clf.predict(x_test)
-    # print(accuracy_score(y_test, y_pred))
+    clf = svm.SVC(kernel='linear', C=1000)
+    clf.fit(x_train, y_train)
+    y_pred = clf.predict(x_test)
+    print(accuracy_score(y_test, y_pred))
 
     test_acc = []
     train_acc = []
-    for e in [0.01, 0.025, 0.05, 0.075, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5]:
-        clf = GradientBoostingClassifier(learning_rate=e, verbose=True)
+    for e in [0.01, 0.1, 1, 10, 100, 1000]:
+        # Kernel = ['linear', 'poly', 'rbf', 'sigmoid']
+        # Cs = [0.01, 0.1, 1, 10, 100, 1000]
+        # SVM default parameters: C=1.0, Kernel= 'rbf'
+        clf = svm.SVC(kernel='rbf', C=e)
         clf.fit(x_train, y_train)
         y_pred = clf.predict(x_cv)
         train_pred = clf.predict(x_train)

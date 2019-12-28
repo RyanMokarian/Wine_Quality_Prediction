@@ -19,7 +19,11 @@ def plot_corr(data):
     fig, ax = plt.subplots(figsize=(10, 10))
     sns.heatmap(corr,
                 xticklabels=corr.columns,
-                yticklabels=corr.columns, annot=True, ax=ax)
+                yticklabels=corr.columns, annot=True, ax=ax,
+                linewidths=.5)
+    # ax.set(xticks=np.arange(data.shape[1]) + .5,
+    #        yticks=np.arange(data.shape[0]) + .5)
+    ax.set_ylim(len(data.columns) + 0.5, -0.5)
     plt.show()
 
 def Histograms(df_red_wine, df_white_wine):
@@ -68,8 +72,8 @@ if __name__ == "__main__":
     # radar_chart(labels, df_red_wine_scaled.mean(), 'Red Wine Mean Radar Chart (0-1)')
     # radar_chart(labels, df_white_wine_scaled.mean(), 'White Wine Mean Radar Chart (0-1)')
 # Heat map
-    # plot_corr(df_red_wine_scaled)
-    # plot_corr(df_white_wine_scaled)
+#     plot_corr(pd.concat([df_red_wine_scaled, y_redwine], axis=1))
+    plot_corr(pd.concat([df_white_wine_scaled, y_whitewine], axis=1))
 
 # (3) Analyzing/Experiment
 # Random Forest
@@ -80,7 +84,7 @@ if __name__ == "__main__":
 # Support Vector Machine
 #     clf = svm_estimation(df_red_wine)
 #     clf = svm.SVC(kernel='rbf', gamma=0.01, C=1000)
-    # classifier_kfold_validation(df_red_wine, clf)
+#     classifier_kfold_validation(df_red_wine, clf)
     # classifier_kfold_validation(df_white_wine, clf)
 
 # Gradient Boosting
@@ -101,15 +105,15 @@ if __name__ == "__main__":
     # gavazn=""
 
     # classifier_kfold_validation(df, clf)
-    train_acc, test_acc = classifier_learn(df_red_wine_scaled, y_redwine)
-
-    import matplotlib.pyplot as plt
-
-    depth = [0.01, 0.025, 0.05, 0.075, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5]
-    plt.plot(depth, train_acc)
-    plt.plot(depth, test_acc)
-    plt.title('red wine model accuracy')
-    plt.ylabel('accuracy')
-    plt.xlabel('learning rate')
-    plt.legend(['train', 'val'], loc='upper left')
-    plt.show()
+    # train_acc, test_acc = classifier_learn(df_white_wine_scaled, y_whitewine)
+    #
+    # import matplotlib.pyplot as plt
+    # C = [0.01, 0.1, 1, 10, 100, 1000]
+    # # Kernel = ['linear', 'poly', 'rbf', 'sigmoid']
+    # plt.plot(C, train_acc)
+    # plt.plot(C, test_acc)
+    # plt.title('red wine model accuracy')
+    # plt.ylabel('accuracy')
+    # plt.xlabel('SVM Kernel Parameter with C=1.0')
+    # plt.legend(['train', 'val'], loc='upper left')
+    # plt.show()
