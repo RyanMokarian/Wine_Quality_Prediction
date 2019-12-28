@@ -1,11 +1,12 @@
 '''
-	****************************************************************
+****************************************************************
 *	Title: " Wine Quality Prediction"
 
 *	Category: Machine Learning
 
 *	Author: Ryan Mokarian
-        ****************************************************************
+****************************************************************
+
 
     
 	Description:
@@ -15,7 +16,7 @@
 	features, helps the wineries to identify the influential factors and to improve
 	and predict the wine quality. 
 
-    Dataset has obtained from h​ttp://www3.dsi.uminho.pt/pcortez/wine
+    Dataset has obtained from http://www3.dsi.uminho.pt/pcortez/wine
 	It consists of chemical analysis performed on a collection of white and red wines 
 	labeled with their quality scores.
 	
