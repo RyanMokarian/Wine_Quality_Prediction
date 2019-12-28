@@ -1,5 +1,12 @@
 '''
-	Project Title: "Wine Quality"
+	****************************************************************
+*	Title: " Wine Quality Prediction"
+
+*	Category: Machine Learning
+
+*	Author: Ryan Mokarian
+        ****************************************************************
+
     
 	Description:
     
